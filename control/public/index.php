@@ -4,10 +4,11 @@
 		session_destroy();
 		header("Location: index.php");
 	}
+	require_once('../admin/droppoint.php');
 	if(isset($_SESSION['user'])){
-		include('../admin/view/controls.php');
+		include(TEMPLATES_PATH.'/controls.php');
 	}
 	else{
-		include('../admin/view/login.php');
+		include(TEMPLATES_PATH.'/login.php');
 	}
 ?>

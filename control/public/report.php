@@ -1,6 +1,6 @@
 <?php
 	require_once('../admin/droppoint.php');
-	
+	// TODO : This page is broken. Fix it. 
 	if(!isset($_GET['code']) and !isset($_GET['domain'])){
 		echo "5";
 		exit();
