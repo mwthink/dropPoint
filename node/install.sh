@@ -10,5 +10,7 @@ apt-get install tor openssh-server
 service tor stop
 rm -rf /var/lib/tor/droppoint/
 mkdir /var/lib/tor/droppoint/
-# TODO : Add hidden service to torrc here
+echo "HiddenServiceDir /var/lib/tor/droppoint/" >> /etc/tor/torrc
+echo "HiddenServicePort 22 127.0.0.1:22" >> /etc/tor/torrc
+chown debian-tor:debian-tor /var/lib/tor/droppoint/
 service tor start
