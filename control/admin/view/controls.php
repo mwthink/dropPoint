@@ -1,3 +1,10 @@
+<?php
+	if(isset($_GET['delete'])){
+		if($db->has("hosts",["domain"=>$_GET['delete']])){
+			$db->delete("hosts",["domain"=>$_GET['delete']]);
+		}
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -28,13 +35,14 @@
 							<tr>
 								<th>Host Name</th>
 								<th>Time Reported</th>
+								<th>Delete</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
 								$hosts=$db->select("hosts",["domain","checkInTime"]);
 								foreach($hosts as $host){
-									echo "<tr><td>".$host['domain']."</td><td>".date('n-d-Y g:i A',$host['checkInTime'])."</td></tr>";
+									echo '<tr><td>'.$host['domain'].'</td><td>'.date('n-d-Y g:i A',$host['checkInTime']).'</td><td><a href="index.php?delete='.$host['domain'].'">Delete</a></td></tr>';
 								}
 							?>
 						</tbody>
