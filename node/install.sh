@@ -44,19 +44,21 @@ then
     echo "Is tor running and does it own /var/lib/tor/droppoint?"
     exit 1
 fi
-tput setaf 2; echo "Your DropPoint hostname is :" $(cat /var/lib/tor/droppoint/hostname);tput sgr0
 echo "Calling home server @ $homeServer"
 # TODO: Clean this up. Set variable from wget or curl or something
 command=$homeServer"?code=$secretCode&domain=$(cat /var/lib/tor/droppoint/hostname)"
 torify wget -q $command -O output.tmp
 result=$(cat output.tmp)
 rm output.tmp
+clear
+echo "ALL DONE!"
+tput setaf 2; echo "Your DropPoint hostname is :" $(cat /var/lib/tor/droppoint/hostname);tput sgr0
 if [ $result == "1" ]
 then
-	echo "Successfully added new server"
+	tput setaf 2;echo "Successfully added new server to master directory";tput sgr0
 elif [ $result == "2" ]
 then
-	echo "Successfully updated server listing"
+	tput setaf 2;echo "Successfully updated server listing";tput sgr0
 else
-	echo "An error has occurred"
+	tput setaf 1;echo "An error occurred while adding/updating server listing";tput sgr0
 fi
