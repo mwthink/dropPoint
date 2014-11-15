@@ -10,6 +10,13 @@
 		$db->query("CREATE TABLE hosts (domain TEXT,checkInTime TEXT);");
 		$db->insert("users",["username"=>strtolower($_POST['username']),"password"=>password_hash($_POST['pwd'], PASSWORD_DEFAULT)]);
 		$db->insert("settings",["setting"=>"secretKey","value"=>rand()]);
+		if(!$db->error()[0] == "00000"){
+			unlink(LIBRARY_PATH.'/database.db');
+			$noticeMessage="An error occurred while saving the database.";
+		}
+		else{
+			$noticeMessage="Successfully installed DropPoint control. Please login.";
+		}
 	}
 	if(!file_exists(LIBRARY_PATH .'/database.db')){
 		include(TEMPLATES_PATH.'/setup.php');
