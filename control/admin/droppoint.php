@@ -17,4 +17,13 @@
 	}
 	$db = new medoo(LIBRARY_PATH .'/database.db');
 	$secretCode=$db->get("settings","value",["setting"=>"secretKey"]);
+	function dbHasError(){
+		global $db;
+		if($db->error()[0] == "00000"){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
 ?>
