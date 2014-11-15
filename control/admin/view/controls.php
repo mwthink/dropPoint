@@ -4,6 +4,9 @@
 			$db->delete("hosts",["domain"=>$_GET['delete']]);
 		}
 	}
+	if(isset($_GET['updateGeneral'])){
+		$db->update("settings",["value"=>$_POST['secretKey']],["setting"=>"secretKey"]);
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,6 +29,12 @@
 		<div id="wrapper">
 			<div class="pure-g">
 				<div class="pure-u-1-3">
+					<form method="post" action="index.php?updateGeneral">
+						<h3>General Information</h3>
+						<b>Secret Key</b> <input type="text" name="secretKey" value="<?php echo $db->get("settings","value",["setting"=>"secretKey"]) ?>">
+						<br><br><input type="submit" value="Update">
+					</form>
+					<hr>
 					<p>You are logged in</p>
 					<a href="index.php?logout"><button>Logout</button></a>
 				</div>
