@@ -2,10 +2,22 @@
 	if(isset($_GET['delete'])){
 		if($db->has("hosts",["domain"=>$_GET['delete']])){
 			$db->delete("hosts",["domain"=>$_GET['delete']]);
+			if(dbHasError()){
+			$noticeMessage="An error occurred while deleting host";
+			}
+			else{
+				$noticeMessage="Successfully deleted host ".$_GET['delete'];
+			}
 		}
 	}
 	if(isset($_GET['updateGeneral'])){
 		$db->update("settings",["value"=>$_POST['secretKey']],["setting"=>"secretKey"]);
+		if(dbHasError()){
+			$noticeMessage="An error occurred while saving settings";
+		}
+		else{
+			$noticeMessage="Saved settings successfully";
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -27,6 +39,7 @@
 	</head>
 	<body>
 		<div id="wrapper">
+			<?php if(isset($noticeMessage)){echo "<p>".$noticeMessage."</p>";} ?>
 			<div class="pure-g">
 				<div class="pure-u-1-3">
 					<form method="post" action="index.php?updateGeneral">
