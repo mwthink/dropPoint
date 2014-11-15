@@ -19,5 +19,4 @@ Installation of the node simply requires running the install.sh script with root
 The script will create a hidden service directory, add the appropriate entry to your torrc file and call home to your reporting server to notify that deployment was successful
 
 #### Control
-To install the control package, simply move the PHP files/folders to your web server directory. Set the base dir to the 'public' folder
-You will need to setup an SQLite database named database.db inside the admin/lib/ folder with the appropriate tables (An installer is underway to automate this process)
+To install the control package, simply move the PHP files/folders to your web server directory. Set the base dir to the 'public' folder and follow the setup instructions upon first load
