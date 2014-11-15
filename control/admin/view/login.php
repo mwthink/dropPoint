@@ -5,6 +5,12 @@
 				$_SESSION['user']="user";
 				header("Location: index.php");
 			}
+			else{
+				$noticeMessage="Invalid username or password";
+			}
+		}
+		else{
+			$noticeMessage="Invalid username or password";
 		}
 	}
 ?>
@@ -19,6 +25,7 @@
 		</style>
 	</head>
 	<body>
+		<?php echo "<p>".$noticeMessage."</p>" ?>
 		<form action="index.php?login" method="post">
 			<input type="text" placeholder="Username" name="username"><br>
 			<input type="password" placeholder="Password" name="password"><br>
