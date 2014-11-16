@@ -19,6 +19,10 @@
 			$noticeMessage="Saved settings successfully";
 		}
 	}
+	if(isset($_GET['manage']) and $db->has("hosts",["domain"=>$_GET['manage']])){
+		include(TEMPLATES_PATH.'/management.php');
+		exit();
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,6 +61,7 @@
 							<tr>
 								<th>Host Name</th>
 								<th>Time Reported</th>
+								<th>Manage</th>
 								<th>Delete</th>
 							</tr>
 						</thead>
@@ -64,7 +69,7 @@
 							<?php
 								$hosts=$db->select("hosts",["domain","checkInTime"]);
 								foreach($hosts as $host){
-									echo '<tr><td>'.$host['domain'].'</td><td>'.date('n-d-Y g:i A',$host['checkInTime']).'</td><td><a href="index.php?delete='.$host['domain'].'">Delete</a></td></tr>';
+									echo '<tr><td>'.$host['domain'].'</td><td>'.date('n-d-Y g:i A',$host['checkInTime']).'</td><td><a href="index.php?manage='.$host['domain'].'">Manage</a></td><td><a href="index.php?delete='.$host['domain'].'">Delete</a></td></tr>';
 								}
 							?>
 						</tbody>

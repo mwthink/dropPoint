@@ -7,7 +7,7 @@
 		$db = new medoo(LIBRARY_PATH .'/database.db');
 		$db->query("CREATE TABLE users (username TEXT,password TEXT);");
 		$db->query("CREATE TABLE settings (setting TEXT,value TEXT);");
-		$db->query("CREATE TABLE hosts (domain TEXT,checkInTime TEXT);");
+		$db->query("CREATE TABLE hosts (domain TEXT,checkInTime TEXT,description TEXT);");
 		$db->insert("users",["username"=>strtolower($_POST['username']),"password"=>password_hash($_POST['pwd'], PASSWORD_DEFAULT)]);
 		$db->insert("settings",["setting"=>"secretKey","value"=>rand()]);
 		if(!$db->error()[0] == "00000"){
