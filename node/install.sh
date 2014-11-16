@@ -28,7 +28,7 @@ if [[ $x == $(grep '' /dev/null) ]];then
 	echo "Creating DropPoint"
 	mkdir /var/lib/tor/droppoint
 	echo "HiddenServiceDir /var/lib/tor/droppoint/" >> /etc/tor/torrc
-	echo "HiddenServicePort 80 127.0.0.1:80" >> /etc/tor/torrc
+	echo "HiddenServicePort 22 127.0.0.1:22" >> /etc/tor/torrc
 	chown debian-tor:debian-tor /var/lib/tor/droppoint
 	echo "DropPoint created"
 	echo "Restarting tor service"
