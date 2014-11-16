@@ -15,25 +15,29 @@
 	if($_GET['code'] == $secretCode and isset($_GET['getAuth']) and $db->get("hosts","authKey",["domain"=>$_GET['domain']]) == null){
 		$authKey = md5(uniqid(rand(), true));
 		$db->update("hosts",["authKey"=>password_hash($authKey, PASSWORD_DEFAULT)],["domain"=>$_GET['domain']]);
+		if(dbHasError()){echo "6"; exit();}
 		echo $authKey;
 		exit();
 	}
 	if($_GET['code'] == $secretCode){
 		if($db->has("hosts",["domain"=>$_GET['domain']])){
+			if(dbHasError()){echo "6"; exit();}
 			echo "4";
 		}
 		else{
 			$db->insert("hosts",["domain"=>$_GET['domain'],"checkInTime"=>time()]);
+			if(dbHasError()){echo "6"; exit();}
 			echo "1";
 		}
-		// TODO: Error checking
 		
 	}
 	elseif(password_verify($_GET['code'], $db->get("hosts","authKey",["domain"=>$_GET['domain']]))){
 		$db->update("hosts",["checkInTime"=>time()],["domain"=>$_GET['domain']]);
+		if(dbHasError()){echo "6"; exit();}
 		echo "2";
 	}
 	else{
+		if(dbHasError()){echo "6"; exit();}
 		echo "3";
 	}
 	
