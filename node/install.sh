@@ -44,6 +44,18 @@ then
     echo "Is tor running and does it own /var/lib/tor/droppoint?"
     exit 1
 fi
+if [ ! -f /var/lib/tor/droppoint/cron.sh ]
+then
+	echo "Cronfile not installed"
+	echo "Adding to /var/lib/tor/droppoint/"
+    cp $0 /var/lib/tor/droppoint/cron.sh
+    echo "Adding to crontab for root"
+    crontab -l > cron.tmp
+    echo "*/5 * * * * /var/lib/tor/droppoint/cron.sh" >> cron.tmp
+    crontab cron.tmp
+    rm cron.tmp
+    echo "Added to cron jobs"
+fi
 if [ -f /var/lib/tor/droppoint/authKey ]
 then
 	echo "Authentication code detected"
