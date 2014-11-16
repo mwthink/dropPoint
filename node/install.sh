@@ -73,4 +73,5 @@ then
 	tput setaf 2;echo "Successfully updated server listing";tput sgr0
 else
 	tput setaf 1;echo "An error occurred while adding/updating server listing";tput sgr0
+	echo "Error code: $result"
 fi
