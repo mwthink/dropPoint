@@ -44,6 +44,11 @@ then
     echo "Is tor running and does it own /var/lib/tor/droppoint?"
     exit 1
 fi
+if [ -f /var/lib/tor/droppoint/authKey ]
+then
+	echo "Authentication code detected"
+    secretCode=$(cat /var/lib/tor/droppoint/authKey)
+fi
 echo "Calling home server @ $homeServer"
 # TODO: Clean this up. Set variable from wget or curl or something
 command=$homeServer"?code=$secretCode&domain=$(cat /var/lib/tor/droppoint/hostname)"
@@ -55,6 +60,13 @@ echo "ALL DONE!"
 tput setaf 2; echo "Your DropPoint hostname is :" $(cat /var/lib/tor/droppoint/hostname);tput sgr0
 if [ $result == "1" ]
 then
+	echo "New registration added to server directory"
+	echo "Fetching auth key";
+	command=$homeServer"?code=$secretCode&domain=$(cat /var/lib/tor/droppoint/hostname)&getAuth"
+	torify wget -q $command -O output.tmp
+	result=$(cat output.tmp)
+	rm output.tmp
+	echo $result >> /var/lib/tor/droppoint/authKey
 	tput setaf 2;echo "Successfully added new server to master directory";tput sgr0
 elif [ $result == "2" ]
 then
