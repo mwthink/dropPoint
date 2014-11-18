@@ -83,8 +83,10 @@ then
 elif [ $result == "2" ]
 then
 	tput setaf 2;echo "Successfully updated server listing";tput sgr0
+elif [ $result == "6" ]
+then
+	tput setaf 1;echo "Server encountered database error";tput sgr0
 else
-	# TODO Add in error detection for server errors like DB write errors
-	tput setaf 1;echo "An error occurred while adding/updating server listing";tput sgr0
+	tput setaf 1;echo "Some error occurred while adding/updating server listing";tput sgr0
 	echo "Error code: $result"
 fi
